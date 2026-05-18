@@ -3,7 +3,7 @@ function App() {
     <main>
       <div className="card">
         <h1>Hello, World!</h1>
-        <p>Testing if this deploys</p>
+        <p>This will be my portfolio website</p>
       </div>
     </main>
   )
