@@ -1,0 +1,54 @@
+name: Deploy # Name of the workflow
+
+# The events that will trigger the workflow.
+on:
+  # This workflow will only run when the CI workflow completes successfully
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
+  
+
+# The jobs that will be run in the workflow.
+jobs:
+  deploy:
+    name: Deploy to S3
+    runs-on: ubuntu-latest
+
+    if: ${{ github.event.workflow_run.conclusion == 'success' }} # Only run the job if the CI workflow completed successfully
+
+  
+    steps:
+      - name: Checkout # Checks out the repository on the runner
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js # Sets up Node.js on the runner. We are rebuilding the project on the runner because we need to have a fresh build output to deploy to S3.
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies # Installs the dependencies for the project
+        run: npm ci
+
+      - name: Build # Builds the project
+        run: npm run build
+        
+      # Official action made by AWS
+      # Takes the secrets and sets up the AWS CLI on the runner so subsequent steps can talk to AWS
+      - name: Configure AWS credentials 
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Sync to S3
+        run: aws s3 sync dist/ s3://${{ secrets.S3_BUCKET_NAME }} --delete # Remove flag deletes any files that no longer exist in dist
+
+      - name: Invalidate CloudFront cache
+        # This is necessary because the CloudFront distribution is cached and needs to be updated to reflect the new changes
+        run: |
+          aws cloudfront create-invalidation \
+            --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} \
+            --paths "/*"

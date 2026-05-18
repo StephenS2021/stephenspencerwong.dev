@@ -1,0 +1,59 @@
+name: CI
+
+# The events that will trigger the workflow.
+on:
+  push:
+    branches: [main] # Runs the workflow when push is made to the main branch
+  pull_request:
+    branches: [main] # Runs when a PR is made to the main branch to make sure code is safe before it touches the main branch
+
+# The jobs that will be run in the workflow.
+jobs:
+  ci:
+    # The name of the job.
+    # This is the name that will be displayed in the GitHub Actions UI.
+    name: Lint, Test & Build
+    # The runner that the job will run on.
+    runs-on: ubuntu-latest
+
+    steps:
+      # This action checks out your repository on the runner
+      # It clones the repository into the runner's filesystem.
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      # Installs dependencies
+      # Similar to npm install but only installs what is in package-lock.json
+      # Prefered to npm install because it is deterministic
+      - name: Install dependencies
+        run: npm ci
+
+
+      # Runs ESLint across your source files. 
+      # If there are any rule violations, this step fails and the job stops — the build never runs. 
+      - name: Lint
+        run: npm run lint
+
+      # Runs Vitest.
+      # Also stops the build if any tests fail.
+      - name: Test
+        run: npm test
+
+      # Builds your application.
+      # If this step fails, the build stops and the job fails.
+      - name: Build
+        run: npm run build
+
+      # Upload the dist folder and upload it to github
+      - name: Upload build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist
+          path: dist/
+          retention-days: 7
