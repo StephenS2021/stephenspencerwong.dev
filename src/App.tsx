@@ -18,7 +18,7 @@ function App() {
       </nav>      
       <div className='max-w-2xl mx-auto w-full flex flex-col gap-16 pt-14'>
         <div className={`text-center py-12 ${bordersOn}`} id="home">
-          <h1 className={`text-4xl md:text-6xl font-bold`}>Stephen Spencer Wong</h1>
+          <h1 className={`text-4xl md:text-6xl font-bold`}>Stephen Spencer-Wong</h1>
           <p className={`text-lg font-medium mt-2 ${accentColor}`}>Full-Stack Software Engineer</p>
           <p className="text-base font-normal mt-4">I'm a software engineer with a Bachelor of Arts in Computer Science from New York University. My work
                   spans the full stack, from React frontends to backend services, cloud infrastructure, and everything in between. I'm currently working at End of an Era.ai and looking for what's next.</p>
