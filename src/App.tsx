@@ -33,7 +33,7 @@ function App() {
         <div className={`text-center flex flex-col justify-center gap-4 py-12 ${bordersOn}`} id="projects">
           <h1 className={sectionTitle}>Projects</h1>
           <div className="flex flex-row gap-4 justify-center">
-            <div onClick={() => window.open('https://stephen-threejs-terrain.vercel.app/', '_blank')} className={`text-center p-4 border-2 ${projectCard}`}>
+            <div onClick={() => window.open('https://stephen-threejs-terrain.vercel.app/', '_blank')} className={`w-1/2 text-center p-4 border-2 ${projectCard}`}>
               <h2 className="text-xl font-bold">Three.js Terrain</h2>
               <p className="text-base font-normal">
                 A real-time 3D terrain simulation built with Three.js. Constructed mesh geometry from scratch using BufferGeometry, manually computing vertex positions, index arrays, and vertex normals. Implemented a custom fractal Perlin noise function that layers multiple octaves of simplex noise to produce organic, animated terrain. The terrain scrolls continuously by offsetting the noise sample each frame.
@@ -47,7 +47,7 @@ function App() {
               </div>
             </div>
 
-            <div onClick={() => window.open('https://github.com/StephenS2021/ci-cd-test', '_blank')} className={`text-center p-4 border-2 ${projectCard}`}>
+            <div onClick={() => window.open('https://github.com/StephenS2021/ci-cd-test', '_blank')} className={`w-1/2 text-center p-4 border-2 ${projectCard}`}>
               <h2 className="text-xl font-bold">CI/CD Pipeline</h2>
               <p className="text-base font-normal">
                 Built a full CI/CD pipeline for a React + Vite application. 
