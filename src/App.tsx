@@ -23,8 +23,8 @@ function App() {
           <p className="text-base font-normal mt-4">I'm a software engineer with a Bachelor of Arts in Computer Science from New York University. My work
                   spans the full stack, from React frontends to backend services, cloud infrastructure, and everything in between. I'm currently working at End of an Era.ai and looking for what's next.</p>
           <div className="flex flex-row gap-4 justify-center mt-4">
-            <a href="https://github.com/stephenspencerwong" className={`${accentColor} justify-center underline`}>GitHub</a>
-            <a href="https://linkedin.com/in/stephenspencerwong" className={`${accentColor} justify-center underline`}>LinkedIn</a>
+            <a href="https://github.com/Stephens2021" className={`${accentColor} justify-center underline`}>GitHub</a>
+            <a href="https://www.linkedin.com/in/stephen-spencer-wong/" className={`${accentColor} justify-center underline`}>LinkedIn</a>
             <a href="/Stephen_Spencer-Wong_Resume_April2026.pdf" target="_blank" className={`${accentColor} justify-center underline`}>Resume</a>
           </div>
           
